@@ -1,12 +1,19 @@
 <!doctype html>
 <html>
 <head>
-  <title>my d3</title>
-  <link rel="stylesheet" href="main.css" type="text/css" media="screen" />
+  <title>My d3</title>
+  <link rel="stylesheet" href="./main.css" type="text/css" />
 </head>
 <body>
+  <ul class="verticalNav" id="nav">
+    <li><button href="#content1" class="menuLink" onclick="showMenuElem(content1)">1</button></li>
+    <li><button href="#content2" class="menuLink" onclick="showMenuElem(content2)">2</button></li>
+  </ul>
 
+  <div id="content1" class="content"></div>
+  <div id="content2" class="content">22222</div>
 </body>
 <script src="./d3.min.js"></script>
+<script src="./menu.js"></script>
 <script src="./index.js"></script>
 </html>

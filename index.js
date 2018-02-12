@@ -6,7 +6,7 @@ var rectangles = [
     { "x": "140", "y":"40", "width":"80", "height": "80", "color" : "yellow"},
     { "x": "180", "y":"20", "width":"80", "height": "80", "color" : "red"}];
 
-d3.select("body").selectAll("p")
+d3.select("#content1").selectAll("p")
  .data(dataset)
  .enter()
  .append("p")
@@ -21,10 +21,10 @@ d3.select("body").selectAll("p")
    }
 });
 
-var mySvg = d3.select("body")
+var mySvg = d3.select("#content1")
   .append("svg")
   .attr("width", 600)
-  .attr("height", 600);
+  .attr("height", 300);
 
 var rects = mySvg.selectAll("rect")
   .data(rectangles)

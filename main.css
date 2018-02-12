@@ -3,3 +3,48 @@ p {
   font-family: 'Helvetica', sans-serif;
   font-size: 24pt;
 }
+
+.verticalNav {
+  color: white;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 5%;
+  height: 100%; /* Full height */
+  position: fixed; /* Make it stick, even on scroll */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+  border-right: 1px solid black;
+  top: 0;
+  left: 0;
+}
+
+.verticalNav > li {
+  padding: 10px;
+  text-align: center;
+}
+
+.verticalNav > li:first-child {
+  padding-top: 40px;
+}
+
+.menuLink {
+  text-decoration: none;
+  font-family: 'Helvetica';
+  font-size: 16px;
+  color: black;
+  border: none;
+  background-color: white;
+  outline: none;
+}
+
+.menuLink:hover {
+  cursor: pointer;
+}
+
+.content {
+  position: relative;
+  left: 7%;
+}
+
+#content1 {
+}
