@@ -9,7 +9,7 @@ var rectangles = [
 d3.select("#content1").selectAll("p")
  .data(dataset)
  .enter()
- .append("p")
+ .append("p").attr("class", "week1p")
  .text(function(d) {
    return "I can count up to " + d;
  })

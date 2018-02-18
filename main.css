@@ -1,6 +1,9 @@
-p {
+body {
+  font-family: 'Questrial', sans-serif;
+}
+
+.week1p {
   font-weight: bold;
-  font-family: 'Helvetica', sans-serif;
   font-size: 24pt;
 }
 
@@ -50,5 +53,17 @@ p {
 }
 
 #content2 {
-  margin-top: 32px;
+  margin-top: 36px;
+}
+
+.bar {
+  display: inline-block;
+  width: 20px;
+  height: 75px;
+  background-color: #58a9d8;
+  margin-right: 2px;
+}
+
+.drawingDiv {
+  margin: 30px 0px 30px 0px;
 }
