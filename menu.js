@@ -1,5 +1,5 @@
 
-var menuElements = ["content1", "content2"];
+var menuElements = ["content1", "content2", "content3"];
 
 for (var i = 1; i < menuElements.length; i++) {
   var tmpElem = document.getElementById(menuElements[i]);

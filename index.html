@@ -36,16 +36,43 @@
       <br /></p>
     </div>
     <div class="part5">
+    <h2>Part 5</h2>
       <div class="presidents"></div>
       <div class="histogram"></div>
     </div>
 
   </div>
 
-  <div id="content3"></div>
+  <div id="content3" class="content">
+    <div class="part1"><h2>Part 1</h2>
+    <h4>Chapter 7</h4>
+    <p><b>What is the point of scales?</b>
+    <br />The point of scales is to map the numbers from input domain to output range. Nomralize the numbers,
+    <br />so map the numeric value to another numeric value that is inside range.</p>
+    <p><b>d3.min()</b> and <b>d3.max()</b> are useful because they allow to find values for domains for different datasets.</p>
+    <div class="scatterplot"></div>
+    <p><b>Margin convention</b> proposed by Mike Bostock syas to first define all marigns, include them in width and barHeight
+    <br /> and than define svg with attribute "transform" that translates it taking into considerations the defined margins.
+    <br />By doing that margins can be omitted later on.</p>
+    <p><b>When to use different scales?</b></p>
+    <p><b>To convert string to Date object</b> we can use d3.timeparse("%m/%d/%y") function. It's good to check for years
+    <br /> before '68 (when using 2 digit years format). </p>
+    <h4>Chapter 8</h4>
+    <p><b>D3 Axes are functions that return visuals, not values. They allow to creat axis, labale etc.</b></p>
+    <p>They are different than scale() functions becuase they draw on screen, so append element to DOM. It has to <br />
+    be specified where to append element in DOM.</p>
+    <p>Transformations allow to change elements position (x,y)</p>
+    <p>d3 interprets the value of ticks() and if its output gives the values that are not readable or wrong it will ovverride the <br />
+    number of ticks.</p>
+    <h4>Chapter 9</h4>
+    <div class="barChart"></div>
+    <p><b>Ordinal scales</b> are used for data that already have some ordered categories.</p>
+    </div>
+  </div>
 </body>
 <script src="./d3.min.js"></script>
 <script src="./menu.js"></script>
 <script src="./week1.js"></script>
 <script src="./week2.js"></script>
+<script src="./week3.js"></script>
 </html>

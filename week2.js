@@ -19,7 +19,7 @@ var dataset = [ 5, 10, 13, 19, 21, 25, 22, 18, 15, 13, 11, 12, 15, 20, 18, 17, 1
 
 var basicData = [5,10,15,20,25];
 
-d3.select("body").select(".part3").select(".barChart").selectAll("div")
+d3.select("body").select("#content2").select(".part3").select(".barChart").selectAll("div")
   .data(dataset)
   .enter()
   .append("div")
@@ -34,7 +34,7 @@ var w = 500;
 var h = 110;
 var barPadding = 1;
 
-var svg = d3.select("body").select(".part3").select(".circles").append("svg")
+var svg = d3.select("body").select("#content2").select(".part3").select(".circles").append("svg")
   .attr("width", w)
   .attr("height", h);
 
@@ -58,7 +58,7 @@ circles.attr("cx", function(d, i) {
 
 //Nice bar chart
 
-var svgSecond = d3.select("body").select(".part3").select(".niceBarChart").append("svg")
+var svgSecond = d3.select("body").select("#content2").select(".part3").select(".niceBarChart").append("svg")
   .attr("width", w)
   .attr("height", h);
 
@@ -102,7 +102,7 @@ svgSecond.selectAll("text")
 var datasetScatter = [ [5,20], [480,90], [250,50], [100,33], [330,95],
                 [410,12], [475,44], [25,67], [85,21], [220, 80]];
 
-var svgScatter = d3.select("body").select(".part3").select(".scatterplot").append("svg")
+var svgScatter = d3.select("body").select("#content2").select(".part3").select(".scatterplot").append("svg")
     .attr("width", w + 200)
     .attr("height", h);
 
@@ -149,13 +149,13 @@ var y = d3.scaleLinear().range([height, 0]);
 
 var x_jitter = d3.randomUniform(-100, 100);
 
-var svgPresidents = d3.select("body").select(".part5").select(".presidents").append("svg")
+var svgPresidents = d3.select("body").select("#content2").select(".part5").select(".presidents").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var svgHistogram = d3.select("body").select(".part5").select(".histogram").append("svg")
+var svgHistogram = d3.select("body").select("#content2").select(".part5").select(".histogram").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")

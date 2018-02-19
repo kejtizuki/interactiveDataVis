@@ -56,6 +56,10 @@ body {
   margin-top: 36px;
 }
 
+#content3 {
+  margin-top: 36px;
+}
+
 .bar {
   display: inline-block;
   width: 20px;
@@ -72,4 +76,9 @@ body {
   fill: white;
   stroke: black;
   stroke-width: 1px;
+}
+
+.axis path, .axis line {
+  stroke: teal;
+  shape-rendering: crispEdges;
 }
