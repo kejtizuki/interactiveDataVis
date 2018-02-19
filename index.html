@@ -9,6 +9,7 @@
   <ul class="verticalNav" id="nav">
     <li><button href="#content1" class="menuLink" onclick="showMenuElem(content1)">1</button></li>
     <li><button href="#content2" class="menuLink" onclick="showMenuElem(content2)">2</button></li>
+    <li><button href="#content3" class="menuLink" onclick="showMenuElem(content3)">3</button></li>
   </ul>
 
   <div id="content1" class="content"></div>
@@ -25,8 +26,23 @@
       <div class="niceBarChart drawingDiv"><h4>Nice bar chart</h4></div>
       <div class="scatterplot drawingDiv"><h4>Scatterplot</h4></div>
     </div>
+    <h2>Part 4</h2>
+    <div class="part4">
+      <p>If the data is overlapping on scatterplot, we can simply shift points by small values, to make them more visible. This is <b>jittering</b>.
+      <br />So, the point of jitter graphs is to show the data in a readable way.</p>
+      <p>The point of the figure is to show that histogram may vary depending on the alignment of bin edges.
+      <br />The choice of bin widths and edges is super important because it influences how detailed information we show.</p>
+      <p><b>When can KDEs be misleading?</b>
+      <br /></p>
+    </div>
+    <div class="part5">
+      <div class="presidents"></div>
+      <div class="histogram"></div>
+    </div>
 
   </div>
+
+  <div id="content3"></div>
 </body>
 <script src="./d3.min.js"></script>
 <script src="./menu.js"></script>

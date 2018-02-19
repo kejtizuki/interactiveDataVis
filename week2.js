@@ -1,5 +1,4 @@
-d3.csv("/data/basicDataWeek2.csv", function(data) {
-  console.log(data[0]);
+d3.csv("data/basicDataWeek2.csv", function(data) {
   d3.select("#content2").select(".part2").selectAll("p")
     .data(data)
     .enter()
@@ -74,7 +73,6 @@ svgSecond.selectAll("rect")
      return h - (d*4);
    })
    .attr("height", function(d) {
-     console.log(d*2)
      return d * 4;
    })
    .attr("width", w / dataset.length - barPadding)
@@ -140,3 +138,100 @@ svgScatter.selectAll("text")
   .attr("font-family", "sans-serif")
   .attr("font-size", "11px")
   .attr("fill", "#5BAAD6");
+
+//Part5
+var margin = {top: 20, right: 20, bottom: 50, left: 70},
+    width = 500 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+var x_jitter = d3.randomUniform(-100, 100);
+
+var svgPresidents = d3.select("body").select(".part5").select(".presidents").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var svgHistogram = d3.select("body").select(".part5").select(".histogram").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  d3.csv("data/presidents.csv", function(data) {
+
+    data.forEach(function(d) {
+      d.no = +d.no;
+      d.months = +d.months
+    });
+
+    x.domain(d3.extent(data, function(d) { return d.months; }));
+    y.domain([0, d3.max(data, function(d) { return d.no; })]);
+
+    //X Axis
+    svgPresidents.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+    svgPresidents.append("g")
+      .call(d3.axisLeft(y));
+
+    svgPresidents.selectAll("dot")
+      .data(data)
+      .enter().append("text")
+      .text(function(d) {
+        return "x"
+      })
+      .attr("class", "strokeDot")
+      .attr("r", 5)
+      .attr("x", function(d) { return x(d.months + Math.random()); })
+      .attr("y", 50)
+      .style("stroke", "red")
+      .style("fill", "none");
+
+    svgPresidents.selectAll("dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("class", "strokeDot")
+      .attr("r", 5)
+      .attr("cx", function(d) { return x(d.months + Math.random()); })
+      .attr("cy", function(d) { return y((d.no / 4) + 10)})
+      .style("stroke", "black")
+      .style("fill", "none");
+
+
+    //HISTOGRAM
+    var range = [];
+    var min, max;
+    data.forEach(function(elem) {
+      range.push(elem.months);
+    })
+
+    range.sort();
+    min = range[0];
+    max = range[range.length - 1];
+    console.log(min, max)
+
+    var bins = d3.histogram()
+      .domain(x.domain())
+      .thresholds(x.ticks(20))
+      (data);
+
+    var yHistogram = d3.scaleLinear()
+      .domain([0, d3.max(bins, function(d) { return d.no; })])
+      .range([height, 0]);
+
+    // var bar = g.selectAll(".bar")
+    //   .data(bins)
+    //   .enter().append("g")
+    //   .attr("class", "bar")
+    //   .attr("transform", function(d) { return "translate(" + x(d.month) + "," + y(d.no) + ")"; });
+    //
+    // bar.append("rect")
+    //     .attr("x", 1)
+    //     .attr("width", x(bins[0].x1) - x(bins[0].x0) - 1)
+    //     .attr("height", function(d) { return height - y(d.length); });
+  });
