@@ -86,3 +86,25 @@ body {
   stroke: teal;
   shape-rendering: crispEdges;
 }
+
+.line {
+  stroke: #E4002B;
+  fill: none;
+  stroke-width: 1;
+}
+
+.buttons {
+  margin: 0px 0px 20px 63px;
+}
+
+.btn {
+  padding: 10px;
+  border: 1px solid #474747;
+  background-color: white;
+  color: #474747;
+  margin: 0px 5px 0px 5px;
+}
+
+.hide {
+  display: none;
+}
