@@ -23,6 +23,25 @@ var symbol = d3.symbol()
   .type(d3.symbolSquare)
   .size(30);
 
+var minMenYear, maxMenYear, minMenTime, maxMenTime;
+var minWomenYear, maxWomenYear, minWomenTime, maxWomenTime;
+
+function calculateWomenEdges(data) {
+  var minWomenYear = d3.min(data, function(d) {return d.Year;});
+  var maxWomenYear = d3.max(data, function(d) { return d.Year; })
+
+  var minWomenTime = d3.min(data, function(d) {return d.Time;});
+  var maxWomenTime = d3.max(data, function(d) { return d.Time; })
+}
+
+function calculateMenEdges(data) {
+  var minMenYear = d3.min(data, function(d) {return d.Year;});
+  var maxMenYear = d3.max(data, function(d) { return d.Year; })
+
+  var minMenTime = d3.min(data, function(d) {return d.Time;});
+  var maxMenTime = d3.max(data, function(d) {return d.Time;});
+}
+
 //This function is called as default (at the beginning) and than on click on button
 //"All"
 function createGraphAll() {
@@ -39,17 +58,8 @@ function createGraphAll() {
         d.Year = d.Year
       })
 
-      var minMenYear = d3.min(menOpenData, function(d) {return d.Year;});
-      var maxMenYear = d3.max(menOpenData, function(d) { return d.Year; })
-
-      var minWomenYear = d3.min(womenOpenData, function(d) {return d.Year;});
-      var maxWomenYear = d3.max(womenOpenData, function(d) { return d.Year; })
-
-      var minMenTime = d3.min(menOpenData, function(d) {return d.Time;});
-      var maxMenTime = d3.max(menOpenData, function(d) {return d.Time;});
-
-      var minWomenTime = d3.min(womenOpenData, function(d) {return d.Time;});
-      var maxWomenTime = d3.max(womenOpenData, function(d) { return d.Time; })
+      calculateMenEdges(menOpenData);
+      calculateWomenEdges(womenOpenData);
 
       var xScale = d3.scaleLinear()
         .domain([minMenYear, maxMenYear])
@@ -171,10 +181,10 @@ function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData,
       })
       .attr("cy", function(d) {
         return whichScaleY(d.Time);
-      })
-      .delay(function(d, i) {
-        return i / whichData.length * 500;  // Dynamic delay (i.e. each item delays a little longer)
       });
+      // .delay(function(d, i) {
+      //   return i / whichData.length * 500;  // Dynamic delay (i.e. each item delays a little longer)
+      // });
   }
 
   if (whichToHide === ".women") {
@@ -212,17 +222,8 @@ function updateChart(whichToHide) {
         d.Year = d.Year
       })
 
-      var minMenYear = d3.min(menOpenData, function(d) {return d.Year;});
-      var maxMenYear = d3.max(menOpenData, function(d) { return d.Year; })
-
-      var minWomenYear = d3.min(womenOpenData, function(d) {return d.Year;});
-      var maxWomenYear = d3.max(womenOpenData, function(d) { return d.Year; })
-
-      var minMenTime = d3.min(menOpenData, function(d) {return d.Time;});
-      var maxMenTime = d3.max(menOpenData, function(d) {return d.Time;});
-
-      var minWomenTime = d3.min(womenOpenData, function(d) {return d.Time;});
-      var maxWomenTime = d3.max(womenOpenData, function(d) { return d.Time; })
+      calculateMenEdges(menOpenData);
+      calculateWomenEdges(womenOpenData);
 
       var womenXscale = d3.scaleLinear()
         .domain([minWomenYear, maxWomenYear])
