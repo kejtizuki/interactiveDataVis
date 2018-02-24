@@ -18,10 +18,13 @@ var svgChart = d3.select("body").select("#content4").select(".chartManWoman").ap
 
 console.log(convertToMinutes("2:55:10"))
 
+//Square symbol to show men
 var symbol = d3.symbol()
   .type(d3.symbolSquare)
   .size(30);
 
+//This function is called as default (at the beginning) and than on click on button
+//"All"
 function createGraphAll() {
   d3.csv("data/menOpen.csv", function(error1, menOpenData) {
     d3.csv("data/womenOpen.csv", function(error2, womenOpenData) {
@@ -48,11 +51,6 @@ function createGraphAll() {
       var minWomenTime = d3.min(womenOpenData, function(d) {return d.Time;});
       var maxWomenTime = d3.max(womenOpenData, function(d) { return d.Time; })
 
-      console.log("men year ", minMenYear, maxMenYear)
-      console.log("men time ", minMenTime, maxMenTime)
-      console.log("women year ", minWomenYear, maxWomenYear)
-      console.log("women time ", minWomenTime, maxWomenTime)
-
       var xScale = d3.scaleLinear()
         .domain([minMenYear, maxMenYear])
         .range([0, width])
@@ -64,18 +62,21 @@ function createGraphAll() {
       var xAxis = d3.axisBottom(xScale).ticks(6),
           yAxis = d3.axisLeft(yScale);
 
+      //Remove axis to assign new axis when press on button "All"
+      //we should change this to update instead of removing but idk how
       svgChart.select(".x.axis")
         .remove()
 
-        svgChart.select(".y.axis")
-          .remove()
+      svgChart.select(".y.axis")
+        .remove()
 
-          svgChart.selectAll(".women")
-            .remove()
+      svgChart.selectAll(".women")
+        .remove()
 
-          svgChart.selectAll(".men")
-            .remove()
+      svgChart.selectAll(".men")
+        .remove()
 
+      //Transition should work as update but it'd not working :(
       svgChart.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -89,6 +90,7 @@ function createGraphAll() {
         .duration(1000)
         .call(yAxis);
 
+      //Path is requored to use symbols
       svgChart.selectAll(".men.dot")
         .data(menOpenData)
         .enter().append("path")
@@ -116,6 +118,7 @@ function createGraphAll() {
           return yScale(d.Time);
         });
 
+      //Connect the dots with line
       var valueline = d3.line()
         .x(function(d) { return xScale(d.Year); })
         .y(function(d) { return yScale(d.Time); });
@@ -132,7 +135,9 @@ function createGraphAll() {
   });
 }
 
+//on enter create default graph for both datasets
 createGraphAll()
+
 
 function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData, whichToHide) {
   svgChart.select(".x.axis")
