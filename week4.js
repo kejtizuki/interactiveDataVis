@@ -27,20 +27,43 @@ var minMenYear, maxMenYear, minMenTime, maxMenTime;
 var minWomenYear, maxWomenYear, minWomenTime, maxWomenTime;
 
 function calculateWomenEdges(data) {
-  var minWomenYear = d3.min(data, function(d) {return d.Year;});
-  var maxWomenYear = d3.max(data, function(d) { return d.Year; })
+  minWomenYear = d3.min(data, function(d) {return d.Year;});
+  maxWomenYear = d3.max(data, function(d) { return d.Year; })
 
-  var minWomenTime = d3.min(data, function(d) {return d.Time;});
-  var maxWomenTime = d3.max(data, function(d) { return d.Time; })
+  minWomenTime = d3.min(data, function(d) {return d.Time;});
+  maxWomenTime = d3.max(data, function(d) { return d.Time; })
 }
 
 function calculateMenEdges(data) {
-  var minMenYear = d3.min(data, function(d) {return d.Year;});
-  var maxMenYear = d3.max(data, function(d) { return d.Year; })
+  minMenYear = d3.min(data, function(d) {return d.Year;});
+  maxMenYear = d3.max(data, function(d) { return d.Year; })
 
-  var minMenTime = d3.min(data, function(d) {return d.Time;});
-  var maxMenTime = d3.max(data, function(d) {return d.Time;});
+  minMenTime = d3.min(data, function(d) {return d.Time;});
+  maxMenTime = d3.max(data, function(d) {return d.Time;});
 }
+
+var tooltip = d3.select("body").select("#content4").select(".chartManWoman").append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+// tooltip mouseover event handler
+var tipMouseover = function(d) {
+  var html  = "Year: " + d.Year;
+
+  tooltip.html(html)
+    .style("left", (d3.event.pageX + 15) + "px")
+    .style("top", (d3.event.pageY - 28) + "px")
+  .transition()
+    .duration(200)
+    .style("opacity", .9)
+
+};
+// tooltip mouseout event handler
+var tipMouseout = function(d) {
+  tooltip.transition()
+    .duration(300)
+    .style("opacity", 0);
+};
 
 //This function is called as default (at the beginning) and than on click on button
 //"All"
@@ -126,7 +149,9 @@ function createGraphAll() {
         })
         .attr("cy", function(d) {
           return yScale(d.Time);
-        });
+        })
+        .on("mouseover", tipMouseover)
+        .on("mouseout", tipMouseout);;
 
       //Connect the dots with line
       var valueline = d3.line()
