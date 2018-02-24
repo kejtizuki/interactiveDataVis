@@ -82,10 +82,10 @@ body {
   stroke-width: 1px;
 }
 
-.axis path, .axis line {
+/* .axis path, .axis line {
   stroke: teal;
   shape-rendering: crispEdges;
-}
+} */
 
 .line {
   stroke: #E4002B;
@@ -103,6 +103,7 @@ body {
   background-color: white;
   color: #474747;
   margin: 0px 5px 0px 5px;
+  outline: 0;
 }
 
 .hide {
@@ -111,9 +112,12 @@ body {
 
 .tooltip {
   position: absolute;
-  font-size: 12px;
-  width:  auto;
+  font-size: 10px;
+  width: auto;
   height: auto;
   pointer-events: none;
-  background-color: white;
+  background-color: #57c7ed;
+  border: 1px solid #57c7ed;
+  padding: 10px;
+  border-radius: 5px;
 }

@@ -48,20 +48,18 @@ var tooltip = d3.select("body").select("#content4").select(".chartManWoman").app
 
 // tooltip mouseover event handler
 var tipMouseover = function(d) {
-  var html  = "Year: " + d.Year;
-
+  var html  = "Year: " + d.Year + "<br />" + "Time: " + d.Time;
   tooltip.html(html)
-    .style("left", (d3.event.pageX + 15) + "px")
-    .style("top", (d3.event.pageY - 28) + "px")
+    .style("left", (d3.event.pageX - 80) + "px")
+    .style("top", (d3.event.pageY - 60) + "px")
   .transition()
-    .duration(200)
+    .duration(1)
     .style("opacity", .9)
-
 };
 // tooltip mouseout event handler
 var tipMouseout = function(d) {
   tooltip.transition()
-    .duration(300)
+    .duration(1)
     .style("opacity", 0);
 };
 
@@ -110,12 +108,20 @@ function createGraphAll() {
         .remove()
 
       //Transition should work as update but it'd not working :(
-      svgChart.append("g")
+      var xAxisSvg = svgChart.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .transition()
+        .attr("transform", "translate(0," + height + ")");
+
+      xAxisSvg.transition()
         .duration(1000)
         .call(xAxis);
+
+      xAxisSvg.append("text")
+        .attr("class", "label")
+        .attr("x", width) // x-offset from the xAxis, move label all the way to the right
+        .attr("y", -6)    // y-offset from the xAxis, moves text UPWARD!
+        .style("text-anchor", "end") // right-justify text
+        .text("Year");
 
       svgChart.append("g")
         .attr("class", "y axis")
@@ -124,25 +130,30 @@ function createGraphAll() {
         .call(yAxis);
 
       //Path is requored to use symbols
-      svgChart.selectAll(".men.dot")
+      var dotsMen = svgChart.selectAll(".men.dot")
         .data(menOpenData)
         .enter().append("path")
-        .transition()
-        .duration(1000)
         .attr("class", "dot men")
         .style("stroke", "#515151")
-        .style("fill", "white")
+        .style("fill", "white");
+
+      dotsMen.transition()
+        .duration(1000)
         .attr("transform", function(d) { return "translate(" + xScale(d.Year) + "," + yScale(d.Time) + ")"; })
         .attr("d", symbol);
 
-      svgChart.selectAll(".women.dot")
+      dotsMen.on("mouseover", tipMouseover)
+        .on("mouseout", tipMouseout);
+
+      var dotsWomen = svgChart.selectAll(".women.dot")
         .data(womenOpenData)
         .enter().append("circle")
-        .transition()
-        .duration(1000)
         .attr("class", "dot women")
         .style("stroke", "#515151")
-        .style("fill", "white")
+        .style("fill", "white");
+
+      dotsWomen.transition()
+        .duration(1000)
         .attr("r", 2)
         .attr("cx", function(d) {
           return xScale(d.Year);
@@ -150,8 +161,10 @@ function createGraphAll() {
         .attr("cy", function(d) {
           return yScale(d.Time);
         })
-        .on("mouseover", tipMouseover)
-        .on("mouseout", tipMouseout);;
+
+      dotsWomen.on("mouseover", tipMouseover)
+      .on("mouseout", tipMouseout);
+
 
       //Connect the dots with line
       var valueline = d3.line()
@@ -192,24 +205,25 @@ function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData,
     svgChart.selectAll(whichToHide)
       .remove()
 
-    svgChart.selectAll("circle")
+
+    var womenDots = svgChart.selectAll("circle")
       .data(whichData)
       .enter().append("circle")
       .attr("class", "dot women")
       .style("stroke", "#515151")
-      .style("fill", "white")
-      .transition()
-      .duration(1000)
-      .attr("r", 2)
-      .attr("cx", function(d) {
-        return whichScaleX(d.Year);
-      })
-      .attr("cy", function(d) {
-        return whichScaleY(d.Time);
-      });
-      // .delay(function(d, i) {
-      //   return i / whichData.length * 500;  // Dynamic delay (i.e. each item delays a little longer)
-      // });
+      .style("fill", "white");
+
+    womenDots.transition()
+    .duration(1000)
+    .attr("r", 2)
+    .attr("cx", function(d) {
+      return whichScaleX(d.Year);
+    })
+    .attr("cy", function(d) {
+      return whichScaleY(d.Time);
+    });
+
+    womenDots.on("mouseover", tipMouseover).on("mouseout", tipMouseout);
   }
 
   if (whichToHide === ".women") {
@@ -220,16 +234,19 @@ function createPlot(whichAxisX, whichAxisY, whichScaleX, whichScaleY, whichData,
     svgChart.selectAll(whichToHide)
       .remove()
 
-    svgChart.selectAll(".men.dot")
+    var menDots = svgChart.selectAll(".men.dot")
       .data(whichData)
       .enter().append("path")
       .attr("class", "dot men")
       .style("stroke", "#515151")
-      .style("fill", "white")
-      .transition()
+      .style("fill", "white");
+
+    menDots.transition()
       .duration(1000)
       .attr("transform", function(d) { return "translate(" + whichScaleX(d.Year) + "," + whichScaleY(d.Time) + ")"; })
       .attr("d", symbol);
+
+    menDots.on("mouseover", tipMouseover).on("mouseout", tipMouseout);
   }
 
 }
@@ -283,17 +300,37 @@ function updateChart(whichToHide) {
   });
 }
 
+var buttonsArray = ["#menData", "#womenData", "#allData"];
+
+function styleButtons(activeButton) {
+  buttonsArray.forEach(function(elem) {
+    d3.select(elem)
+    // .transition()
+    // .duration(1000)
+    .style("border", '1px solid black')
+    .style("color", "black");
+  })
+  d3.select(activeButton)
+  // .transition()
+  // .duration(1000)
+  .style("border", '1px solid #3396b7')
+  .style("color", "#3396b7");
+}
+
 d3.select("#allData")
 	.on("click", function() {
+    styleButtons("#allData")
 		createGraphAll()
 	});
 
 d3.select("#menData")
 	.on("click", function() {
+    styleButtons("#menData")
 		updateChart(".women")
 	});
 
 d3.select("#womenData")
 	.on("click", function() {
+    styleButtons("#womenData")
 		updateChart(".men")
 	});
